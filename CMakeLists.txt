@@ -6,4 +6,6 @@ set(BUILD_SHARED_LIBS ON)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
 
+include_directories(include)
+
 add_library(xbullet SHARED ${SOURCES})

@@ -1,0 +1,4 @@
+dependencies/**/*.cpp
+dependencies/**/*.cmake
+dependencies/**/*.natvis
+dependencies/**/*.inl
