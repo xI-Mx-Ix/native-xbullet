@@ -47,15 +47,26 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Dieser Schritt wurde angepasst, um das Linker-Problem zu beheben
       - name: Setup Linux aarch64 Cross-Compiler and Toolchain (only Linux aarch64)
         if: matrix.arch == 'aarch64' && runner.os == 'Linux'
         run: |
+          # 1. Cross-Compiler installieren
           sudo apt-get update
-          sudo apt-get install -y g++-aarch64-linux-gnu
+          sudo apt-get install -y g++-aarch64-linux-gnu wget
+
+          # 2. Toolchain-Datei für CMake erstellen
           echo "set(CMAKE_SYSTEM_NAME Linux)" > aarch64-linux-gnu.toolchain.cmake
           echo "set(CMAKE_SYSTEM_PROCESSOR aarch64)" >> aarch64-linux-gnu.toolchain.cmake
           echo "set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)" >> aarch64-linux-gnu.toolchain.cmake
           echo "set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)" >> aarch64-linux-gnu.toolchain.cmake
+
+          # 3. aarch64 JDK herunterladen, um Link-Fehler mit dem amd64-Host-JDK zu vermeiden
+          wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz
+          tar xzf OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz
+          
+          # 4. JAVA_HOME für nachfolgende Schritte auf das aarch64-JDK setzen
+          echo "JAVA_HOME=$PWD/jdk-17.0.11+9" >> $GITHUB_ENV
 
       - name: Configure CMake
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release ${{ matrix.cmake_params }}
