@@ -6,6 +6,11 @@ set(BUILD_SHARED_LIBS ON)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
 
-include_directories(include)
+include_directories(
+    include
+    dependencies/Jolt
+    dependencies/JNI
+)
+
 
 add_library(xbullet SHARED ${SOURCES})
