@@ -24,14 +24,12 @@ if(WIN32)
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64|x86_64")
         set(JOLTJNI_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/libs/windows-x86_64")
     endif()
-
 elseif(APPLE)
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
         set(JOLTJNI_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/libs/macos-x86_64")
     elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
         set(JOLTJNI_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/libs/macos-aarch64")
     endif()
-
 elseif(UNIX)
     if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
         set(JOLTJNI_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/libs/linux-x86_64")
@@ -41,15 +39,15 @@ elseif(UNIX)
 endif()
 
 if(JOLTJNI_LIB_DIR)
+    message(STATUS "Found and configured joltjni for this platform in: ${JOLTJNI_LIB_DIR}")
 
     target_link_directories(xbullet PRIVATE ${JOLTJNI_LIB_DIR})
 
-    target_link_libraries(xbullet PRIVATE joltjni)
-
-    message(STATUS "Found and configured joltjni for this platform in: ${JOLTJNI_LIB_DIR}")
+    # Wichtig: Linke explizit die joltjni.lib, damit Abhängigkeit entsteht!
+    target_link_libraries(xbullet PRIVATE
+        joltjni
+        ${JNI_LIBRARIES}
+    )
 else()
-
     message(FATAL_ERROR "Unsupported OS/Architecture combination. Could not find a matching joltjni library.")
 endif()
-
-target_link_libraries(xbullet PRIVATE ${JNI_LIBRARIES})
