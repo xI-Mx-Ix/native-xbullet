@@ -2,6 +2,8 @@
 
 #include <jni.h>
 
+#include <Jolt/Jolt.h>
+
 #include <Jolt/Physics/PhysicsSystem.h>
 #include "net_xmx_nativexbullet_Gravity.h"
 
