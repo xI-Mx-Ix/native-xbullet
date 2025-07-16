@@ -40,7 +40,6 @@ public:
 								Quat(const Quat &inRHS) = default;
 	Quat &						operator = (const Quat &inRHS) = default;
 	inline						Quat(float inX, float inY, float inZ, float inW)				: mValue(inX, inY, inZ, inW) { }
-	inline explicit				Quat(const Float4 &inV)											: mValue(Vec4::sLoadFloat4(&inV)) { }
 	inline explicit				Quat(Vec4Arg inV)												: mValue(inV) { }
 	///@}
 
@@ -242,11 +241,8 @@ public:
 	/// Load 3 floats from memory (X, Y and Z component and then calculates W) reads 32 bits extra which it doesn't use
 	static JPH_INLINE Quat		sLoadFloat3Unsafe(const Float3 &inV);
 
-	/// Store as 3 floats to memory (X, Y and Z component). Ensures that W is positive before storing.
+	/// Store 3 as floats to memory (X, Y and Z component)
 	JPH_INLINE void				StoreFloat3(Float3 *outV) const;
-
-	/// Store as 4 floats
-	JPH_INLINE void				StoreFloat4(Float4 *outV) const;
 
 	/// To String
 	friend ostream &			operator << (ostream &inStream, QuatArg inQ)					{ inStream << inQ.mValue; return inStream; }

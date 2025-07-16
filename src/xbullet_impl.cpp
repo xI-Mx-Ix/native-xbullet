@@ -1,26 +1,21 @@
-#include <Jolt/Jolt.h>
-#include <Jolt/Physics/PhysicsSystem.h>
-#include <Jolt/Core/TempAllocator.h>
-#include <Jolt/Core/JobSystemThreadPool.h>
-
-#include "net_xmx_nativexbullet_NativeGravityTest.h"
-
 #include <iostream>
 
-JNIEXPORT void JNICALL Java_net_xmx_xbullet_natives_XBulletNatives_setGravityInXBullet
-  (JNIEnv *env, jclass clazz, jlong physicsSystemPtr, jfloat gx, jfloat gy, jfloat gz) {
+#include <jni.h>
+
+#include <Jolt/Physics/PhysicsSystem.h>
+#include "net_xmx_nativexbullet_Gravity.h"
+
+JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravity
+  (JNIEnv* env, jclass clazz, jlong physicsSystemPtr, jfloat gx, jfloat gy, jfloat gz) {
 
     if (physicsSystemPtr == 0) {
-        std::cerr << "[xbullet.dll] Fehler: Ungültiger (NULL) PhysicsSystem Pointer erhalten." << std::endl;
+        std::cerr << "[xbullet library] Error: Received a NULL pointer for PhysicsSystem from Java." << std::endl;
         return;
     }
 
-    JPH::PhysicsSystem* system = reinterpret_cast<JPH::PhysicsSystem*>(physicsSystemPtr);
+    JPH::PhysicsSystem* physSystem = reinterpret_cast<JPH::PhysicsSystem*>(physicsSystemPtr);
 
-    JPH::Vec3 new_gravity(gx, gy, gz);
+    physSystem->SetGravity(JPH::Vec3(gx, gy, gz));
 
-    system->SetGravity(new_gravity);
-
-    std::cout << "[xbullet.dll] Gravitation erfolgreich auf ("
-              << gx << ", " << gy << ", " << gz << ") gesetzt." << std::endl;
+    std::cout << "[xbullet library] Successfully called JPH::PhysicsSystem::SetGravity via custom native call." << std::endl;
 }
