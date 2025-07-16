@@ -14,7 +14,7 @@ find_package(JNI REQUIRED)
 
 target_include_directories(xbullet PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
-    "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Jolt"
+    "${CMAKE_CURRENT_SOURCE_DIR}/dependencies"
     ${JNI_INCLUDE_DIRS}
 )
 
