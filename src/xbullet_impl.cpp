@@ -1,13 +1,12 @@
 #include <iostream>
-
 #include <jni.h>
 
 #include <Jolt/Jolt.h>
-
 #include <Jolt/Physics/PhysicsSystem.h>
+
 #include "net_xmx_nativexbullet_Gravity.h"
 
-JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravity
+JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravityInternal
   (JNIEnv* env, jclass clazz, jlong physicsSystemPtr, jfloat gx, jfloat gy, jfloat gz) {
 
     if (physicsSystemPtr == 0) {
@@ -18,15 +17,10 @@ JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravity
     JPH::PhysicsSystem* physSystem = reinterpret_cast<JPH::PhysicsSystem*>(physicsSystemPtr);
 
     physSystem->SetGravity(JPH::Vec3(gx, gy, gz));
-
-    std::cout << "[xbullet library] Successfully called JPH::PhysicsSystem::SetGravity via custom native call." << std::endl;
 }
 
 JNIEXPORT jstring JNICALL Java_net_xmx_nativexbullet_Gravity_getXBulletVersion
   (JNIEnv *env, jclass clazz) {
-    
-    JPH::Vec3 dummy; 
 
     return env->NewStringUTF("xbullet-1.0-test");
 }
-
