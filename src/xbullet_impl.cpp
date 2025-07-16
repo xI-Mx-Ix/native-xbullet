@@ -21,3 +21,12 @@ JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravity
 
     std::cout << "[xbullet library] Successfully called JPH::PhysicsSystem::SetGravity via custom native call." << std::endl;
 }
+
+JNIEXPORT jstring JNICALL Java_net_xmx_nativexbullet_Gravity_getXBulletVersion
+  (JNIEnv *env, jclass clazz) {
+    
+    JPH::Vec3 dummy; 
+
+    return env->NewStringUTF("xbullet-1.0-test");
+}
+

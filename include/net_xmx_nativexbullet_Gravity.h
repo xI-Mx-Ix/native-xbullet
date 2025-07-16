@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravityInternal
   (JNIEnv *, jclass, jlong, jfloat, jfloat, jfloat);
 
+/*
+ * Class:     net_xmx_nativexbullet_Gravity
+ * Method:    getXBulletVersion
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_net_xmx_nativexbullet_Gravity_getXBulletVersion
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif
