@@ -7,21 +7,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     net_xmx_nativexbullet_Gravity
- * Method:    setGravityInternal
- * Signature: (JFFF)V
- */
-JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setGravityInternal
-  (JNIEnv *, jclass, jlong, jfloat, jfloat, jfloat);
-
-/*
- * Class:     net_xmx_nativexbullet_Gravity
- * Method:    getXBulletVersion
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_net_xmx_nativexbullet_Gravity_getXBulletVersion
-  (JNIEnv *, jclass);
+	/*
+	 * Class:     net_xmx_nativexbullet_Gravity
+	 * Method:    setNative
+	 * Signature: (JFFF)V
+	 */
+	JNIEXPORT void JNICALL Java_net_xmx_nativexbullet_Gravity_setNative
+	(JNIEnv*, jclass, jlong, jfloat, jfloat, jfloat);
 
 #ifdef __cplusplus
 }
